@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Rehan Store</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top, #020617, #000);
+  color: white;
+}
+
+.container {
+  max-width: 480px;
+  margin: auto;
+  padding: 15px;
+}
+
+.card {
+  backdrop-filter: blur(15px);
+  background: rgba(255,255,255,0.05);
+  border-radius: 25px;
+  padding: 20px;
+  border: 1px solid rgba(255,215,0,0.4);
+  box-shadow: 0 0 40px rgba(255,215,0,0.3);
+}
+
+.title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  background: linear-gradient(45deg, gold, #00c3ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 15px;
+}
+
+/* GOLD LINE */
+.gold-line {
+  height: 2px;
+  width: 100%;
+  margin: 15px 0;
+  background: linear-gradient(90deg, transparent, gold, transparent);
+  background-size: 200% auto;
+  animation: goldMove 2s linear infinite;
+}
+
+@keyframes goldMove {
+  0% { background-position: -200px; }
+  100% { background-position: 200px; }
+}
+
+.item {
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(0,0,0,0.6);
+  border: 1px solid rgba(0,195,255,0.4);
+  transition: 0.3s;
+  margin-bottom: 12px;
+}
+
+.item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px #00c3ff;
+}
+
+.qris {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 0 20px gold;
+}
+
+.label {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+.value {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.btn-group {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(45deg, gold, orange);
+  box-shadow: 0 0 12px rgba(255,215,0,0.7);
+  transition: 0.3s;
+}
+
+.btn-blue {
+  background: linear-gradient(45deg, #00c3ff, #0044ff);
+  box-shadow: 0 0 12px rgba(0,195,255,0.7);
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="card">
+
+    <div class="title">💳 PAYMENT REHAN STORE</div>
+
+    <!-- QRIS -->
+    <div class="gold-line"></div>
+    <div class="item">
+      <div class="label">QRIS</div><br>
+      <img src="https://files.catbox.moe/5y716i.jpg" class="qris">
+
+      <div class="btn-group">
+        <button class="btn" onclick="downloadQR()">Download QR</button>
+      </div>
+    </div>
+
+    <!-- DANA -->
+    <div class="gold-line"></div>
+    <div class="item">
+      <div class="label">DANA</div>
+      <div class="value" id="dana">08984800635</div>
+      <div class="label">A/N: Nur H*****h</div>
+
+      <div class="btn-group">
+        <button class="btn-blue btn" onclick="copyText('dana')">Salin</button>
+      </div>
+    </div>
+
+    <!-- GOPAY -->
+    <div class="gold-line"></div>
+    <div class="item">
+      <div class="label">GOPAY</div>
+      <div class="value" id="gopay">08984800635</div>
+      <div class="label">A/N: Nur H*****h</div>
+
+      <div class="btn-group">
+        <button class="btn-blue btn" onclick="copyText('gopay')">Salin</button>
+      </div>
+    </div>
+
+    <!-- SEABANK -->
+    <div class="gold-line"></div>
+    <div class="item">
+      <div class="label">SeaBank</div>
+      <div class="value">901844329174</div>
+      <div class="label">A/N: Nur H*****h</div>
+
+      <div class="btn-group">
+        <button class="btn-blue btn" onclick="copyManual('901844329174')">Salin</button>
+      </div>
+    </div>
+
+    <!-- ACTION -->
+    <div class="gold-line"></div>
+    <div class="item">
+      <div class="btn-group">
+        <a href="https://wa.me/62895410354446?text=Halo%20admin%20saya%20mau%20order" class="btn">Admin</a>
+        <a href="https://whatsapp.com/channel/0029VbCRYOf6WaKs1OfaGP22" class="btn-blue btn">Channel</a>
+        <a href="https://rehan-prjct.vercel.app" class="btn">Order</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function copyText(id){
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text);
+  alert("Tersalin: " + text);
+}
+
+function copyManual(text){
+  navigator.clipboard.writeText(text);
+  alert("Tersalin: " + text);
+}
+
+function downloadQR() {
+  fetch("https://www.mediafire.com/file/hjh3b2alpykqffo/33ytv4.jpg/file")
+    .then(res => res.blob())
+    .then(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "QRIS-RehanStore.jpg";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    })
+    .catch(() => {
+      window.open("https://www.mediafire.com/file/hjh3b2alpykqffo/33ytv4.jpg/file", "_blank");
+    });
+}
+</script>
+
+</body>
+</html>
