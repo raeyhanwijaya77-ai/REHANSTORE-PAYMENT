@@ -14,14 +14,12 @@ body {
   color: white;
 }
 
-/* CONTAINER */
 .container {
   max-width: 480px;
   margin: auto;
   padding: 15px;
 }
 
-/* GLASS CARD */
 .card {
   backdrop-filter: blur(15px);
   background: rgba(255,255,255,0.05);
@@ -29,10 +27,8 @@ body {
   padding: 20px;
   border: 1px solid rgba(255,215,0,0.4);
   box-shadow: 0 0 40px rgba(255,215,0,0.3);
-  animation: fadeIn 1s ease;
 }
 
-/* TITLE */
 .title {
   text-align: center;
   font-size: 24px;
@@ -43,29 +39,20 @@ body {
   margin-bottom: 20px;
 }
 
-/* ITEM */
 .item {
   margin: 12px 0;
   padding: 14px;
   border-radius: 18px;
   background: rgba(0,0,0,0.6);
   border: 1px solid rgba(0,195,255,0.4);
-  transition: 0.3s;
 }
 
-.item:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 20px #00c3ff;
-}
-
-/* QR */
 .qris {
   width: 100%;
   border-radius: 15px;
   box-shadow: 0 0 20px gold;
 }
 
-/* TEXT */
 .label {
   font-size: 14px;
   opacity: 0.7;
@@ -76,7 +63,6 @@ body {
   font-weight: bold;
 }
 
-/* BUTTON GROUP */
 .btn-group {
   display: flex;
   gap: 8px;
@@ -84,7 +70,6 @@ body {
   flex-wrap: wrap;
 }
 
-/* BUTTON */
 .btn {
   flex: 1;
   padding: 10px;
@@ -92,28 +77,35 @@ body {
   font-size: 13px;
   font-weight: bold;
   text-align: center;
-  text-decoration: none;
   color: white;
-  cursor: pointer;
   border: none;
+  cursor: pointer;
   background: linear-gradient(45deg, gold, orange);
-  box-shadow: 0 0 12px rgba(255,215,0,0.7);
-  transition: 0.3s;
 }
 
 .btn-blue {
   background: linear-gradient(45deg, #00c3ff, #0044ff);
-  box-shadow: 0 0 12px rgba(0,195,255,0.7);
 }
 
-.btn:hover {
-  transform: scale(1.05);
+/* 🔥 TOAST */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  background: linear-gradient(45deg, gold, orange);
+  color: black;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  opacity: 0;
+  transition: 0.3s;
+  box-shadow: 0 0 15px gold;
 }
 
-/* ANIMATION */
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(20px);}
-  to {opacity: 1; transform: translateY(0);}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
 }
 </style>
 </head>
@@ -128,7 +120,11 @@ body {
     <!-- QRIS -->
     <div class="item">
       <div class="label">QRIS</div><br>
-      <img src="https://files.catbox.moe/5y716i.jpg" class="qris">
+
+      <!-- FIX QRIS -->
+      <img src="https://files.catbox.moe/5y716i.jpg" 
+           class="qris"
+           onerror="this.src='https://via.placeholder.com/300x300?text=QRIS+ERROR'">
 
       <div class="btn-group">
         <a href="https://www.mediafire.com/file/hjh3b2alpykqffo/33ytv4.jpg/file" class="btn">
@@ -182,16 +178,29 @@ body {
   </div>
 </div>
 
+<!-- TOAST -->
+<div id="toast" class="toast">Tersalin!</div>
+
 <script>
+function showToast(text){
+  const toast = document.getElementById("toast");
+  toast.innerText = text;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2000);
+}
+
 function copyText(id){
   const text = document.getElementById(id).innerText;
   navigator.clipboard.writeText(text);
-  alert("Tersalin: " + text);
+  showToast("Nomor berhasil disalin!");
 }
 
 function copyManual(text){
   navigator.clipboard.writeText(text);
-  alert("Tersalin: " + text);
+  showToast("Rekening berhasil disalin!");
 }
 </script>
 
