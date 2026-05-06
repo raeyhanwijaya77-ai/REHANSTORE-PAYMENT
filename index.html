@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Payment Rehan Store</title>
 
 <style>
@@ -14,15 +13,12 @@ body {
   color: white;
 }
 
-/* CONTAINER FULL HP */
 .container {
-  width: 100%;
   max-width: 500px;
   margin: auto;
   padding: 15px;
 }
 
-/* BOX PREMIUM */
 .payment-box {
   background: rgba(0,0,0,0.6);
   border-radius: 20px;
@@ -31,60 +27,55 @@ body {
   border: 1px solid gold;
 }
 
-/* TITLE */
 .title {
   text-align: center;
-  font-size: 22px;
-  font-weight: bold;
+  font-size: 20px;
   color: gold;
   margin-bottom: 15px;
 }
 
-/* ITEM */
 .item {
-  margin: 15px 0;
+  margin: 12px 0;
   padding: 12px;
   border-radius: 12px;
   border: 1px solid #00c3ff;
   background: rgba(0,0,0,0.5);
+  text-align: center;
 }
 
-/* QRIS */
+/* QR */
 .qris-img {
   width: 100%;
+  max-height: 250px;
+  object-fit: contain;
   border-radius: 10px;
 }
 
-/* BUTTON */
+/* GRID BUTTON */
+.btn-group {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 .btn {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  margin-top: 8px;
-  border-radius: 10px;
-  text-align: center;
+  padding: 8px 12px;
+  border-radius: 8px;
   text-decoration: none;
+  font-size: 13px;
   font-weight: bold;
   color: white;
   background: linear-gradient(45deg, gold, orange);
   border: none;
 }
 
-/* BUTTON BLUE */
 .btn-blue {
   background: linear-gradient(45deg, #00c3ff, #0044ff);
 }
 
-/* HOVER */
 .btn:hover {
-  opacity: 0.8;
-}
-
-/* RESPONSIVE FIX */
-@media(max-width: 500px){
-  .title {
-    font-size: 18px;
-  }
+  opacity: 0.85;
 }
 </style>
 </head>
@@ -99,11 +90,12 @@ body {
     <!-- QRIS -->
     <div class="item">
       <b>QRIS</b><br><br>
-      <img src="https://i.ibb.co/0R5xh3Xr/qris.png" class="qris-img">
 
-      <a href="https://i.ibb.co/0R5xh3Xr/qris.png" download class="btn">
-        Download QRIS
-      </a>
+      <img src="https://files.catbox.moe/33ytv4.jpg" class="qris-img" id="qris">
+
+      <div class="btn-group">
+        <button class="btn" onclick="downloadQR()">Download</button>
+      </div>
     </div>
 
     <!-- DANA -->
@@ -111,9 +103,9 @@ body {
       <b>DANA</b><br>
       <span id="dana">08984800635</span>
 
-      <button class="btn-blue btn" onclick="copyText('dana')">
-        Salin Nomor DANA
-      </button>
+      <div class="btn-group">
+        <button class="btn-blue btn" onclick="copyText('dana')">Salin</button>
+      </div>
     </div>
 
     <!-- GOPAY -->
@@ -121,34 +113,30 @@ body {
       <b>GOPAY</b><br>
       <span id="gopay">08984800635</span>
 
-      <button class="btn-blue btn" onclick="copyText('gopay')">
-        Salin Nomor GOPAY
-      </button>
+      <div class="btn-group">
+        <button class="btn-blue btn" onclick="copyText('gopay')">Salin</button>
+      </div>
     </div>
 
     <!-- SEABANK -->
     <div class="item">
       <b>SeaBank</b><br>
-      No: 901844329174<br>
+      901844329174<br>
       A/N: Nur H*****h
 
-      <button class="btn-blue btn" onclick="copyManual('901844329174')">
-        Salin Rekening
-      </button>
+      <div class="btn-group">
+        <button class="btn-blue btn" onclick="copyManual('901844329174')">Salin</button>
+      </div>
     </div>
 
-    <!-- BUTTON -->
-    <a href="https://wa.me/62895410354446" class="btn">
-      Chat Admin
-    </a>
-
-    <a href="https://whatsapp.com/channel/0029VbCRYOf6WaKs1OfaGP22" class="btn-blue btn">
-      Saluran WhatsApp
-    </a>
-
-    <a href="https://rehan-prjct.vercel.app" class="btn">
-      Order Sekarang
-    </a>
+    <!-- BUTTON UTAMA -->
+    <div class="item">
+      <div class="btn-group">
+        <a href="https://wa.me/62895410354446" class="btn">Admin</a>
+        <a href="https://whatsapp.com/channel/0029VbCRYOf6WaKs1OfaGP22" class="btn-blue btn">Channel</a>
+        <a href="https://rehan-prjct.vercel.app" class="btn">Order</a>
+      </div>
+    </div>
 
   </div>
 </div>
@@ -157,12 +145,22 @@ body {
 function copyText(id){
   const text = document.getElementById(id).innerText;
   navigator.clipboard.writeText(text);
-  alert("Berhasil disalin: " + text);
+  alert("Tersalin: " + text);
 }
 
 function copyManual(text){
   navigator.clipboard.writeText(text);
-  alert("Berhasil disalin: " + text);
+  alert("Tersalin: " + text);
+}
+
+/* DOWNLOAD QR KE GALERI */
+function downloadQR() {
+  const link = document.createElement('a');
+  link.href = document.getElementById('qris').src;
+  link.download = 'QRIS-RehanStore.jpg';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 </script>
 
